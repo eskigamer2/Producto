@@ -10,7 +10,7 @@ Este repositorio contiene la documentación y configuración de una topología d
 | **Lisbeth Gómez Daian Gómez** | 2025-0701 | Integrante |
 | **Keury Eliezer Rijo Pérez** | 2025-2137 | Integrante |
 | **Estarlyn Vallejo** | 2025-2179 | Integrante |
-| **José Cabral** | 2025-1631 | Integrante |
+
 
 ---
 
