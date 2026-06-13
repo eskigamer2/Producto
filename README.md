@@ -1,3 +1,10 @@
+Integrantes:
+Isamar Vásquez Santana 2025-0196 ( Lider del equipo)
+Lisbeth Gómez Daian Gómez 2025-0701
+Keury Eliezer Rijo Pérez 2025-2137
+Estarlyn Vallejo 2025-2179
+
+
 Credenciales de Acceso
 Todos los dispositivos de la red comparten las mismas credenciales de acceso.
 Parámetro	Valor
