@@ -1,0 +1,21 @@
+----------------------------ISP--------------------------------
+enable
+configure terminal
+hostname ISP
+username admin privilege 15 secret itla123
+enable secret Cisco123
+interface e0/0
+ duplex full
+ ip address 203.0.113.1 255.255.255.252
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory 

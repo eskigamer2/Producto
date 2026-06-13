@@ -1,0 +1,571 @@
+Configuración básica
+----------------------------R1-CORE--------------------------------
+enable
+configure terminal
+hostname R1-Core
+ipv6 unicast-routing
+username admin privilege 15 secret itla123
+enable secret Cisco123
+interface e0/0
+ duplex full
+ no shutdown
+interface e0/0.10
+ encapsulation dot1Q 10
+ ip address 172.18.0.2 255.255.248.0
+ ipv6 address 2001:25:18::2/117
+ standby version 2
+ standby 10 ip 172.18.0.1
+ standby 10 priority 110
+ standby 10 preempt
+ no shutdown
+interface e0/0.20
+ encapsulation dot1Q 20
+ ip address 172.18.8.2 255.255.255.0
+ ipv6 address 2001:25:18::802/120
+ standby version 2
+ standby 20 ip 172.18.8.1
+ standby 20 priority 110
+ standby 20 preempt
+ no shutdown
+interface e0/0.30
+ encapsulation dot1Q 30
+ ip address 172.18.10.66 255.255.255.224
+ ipv6 address 2001:25:18::a42/123
+ standby version 2
+ standby 30 ip 172.18.10.65
+ standby 30 priority 110
+ standby 30 preempt
+ no shutdown
+interface e0/0.40
+ encapsulation dot1Q 40
+ ip address 172.18.10.98 255.255.255.224
+ ipv6 address 2001:25:18::a62/123
+ standby version 2
+ standby 40 ip 172.18.10.97
+ standby 40 priority 110
+ standby 40 preempt
+ no shutdown
+interface e0/0.99
+ encapsulation dot1Q 99
+ ip address 172.18.10.130 255.255.255.240
+ no shutdown
+interface e0/1
+ duplex full
+ no shutdown
+interface e0/1.10
+ encapsulation dot1Q 10
+ ip address 172.18.0.3 255.255.248.0
+ standby version 2
+ standby 10 ip 172.18.0.1
+ standby 10 priority 110
+ standby 10 preempt
+ no shutdown
+interface e0/1.20
+ encapsulation dot1Q 20
+ ip address 172.18.8.3 255.255.255.0
+ standby version 2
+ standby 20 ip 172.18.8.1
+ standby 20 priority 110
+ standby 20 preempt
+ no shutdown
+interface e0/1.30
+ encapsulation dot1Q 30
+ ip address 172.18.10.67 255.255.255.224
+ standby version 2
+ standby 30 ip 172.18.10.65
+ standby 30 priority 110
+ standby 30 preempt
+ no shutdown
+interface e0/1.40
+ encapsulation dot1Q 40
+ ip address 172.18.10.99 255.255.255.224
+ standby version 2
+ standby 40 ip 172.18.10.97
+ standby 40 priority 110
+ standby 40 preempt
+ no shutdown
+interface e0/1.99
+ encapsulation dot1Q 99
+ no shutdown
+interface e0/2
+ duplex full
+ ip address 203.0.113.2 255.255.255.252
+ no shutdown
+interface s1/0
+ ip address 172.18.10.161 255.255.255.252
+ ipv6 address 2001:25:18::aa1/126
+ no shutdown
+ip route 0.0.0.0 0.0.0.0 203.0.113.1
+router ospf 1
+ router-id 1.1.1.1
+ network 172.18.0.0 0.0.7.255 area 0
+ network 172.18.8.0 0.0.0.255 area 0
+ network 172.18.10.64 0.0.0.31 area 0
+ network 172.18.10.96 0.0.0.31 area 0
+ network 172.18.10.128 0.0.0.15 area 0
+ network 172.18.10.160 0.0.0.3 area 0
+ default-information originate always
+ passive-interface e0/0.10
+ passive-interface e0/0.20
+ passive-interface e0/0.30
+ passive-interface e0/0.40
+ passive-interface e0/1.10
+ passive-interface e0/1.20
+ passive-interface e0/1.30
+ passive-interface e0/1.40
+ area 1 stub
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------R2--------------------------------
+enable
+configure terminal
+hostname R2
+ipv6 unicast-routing
+username admin privilege 15 secret itla123
+enable secret Cisco123
+interface e0/0
+ duplex full
+ no shutdown
+interface e0/0.50
+ encapsulation dot1Q 50
+ ip address 172.18.9.129 255.255.255.128
+ ipv6 address 2001:25:18::981/121
+ no shutdown
+interface e0/0.60
+ encapsulation dot1Q 60
+ ip address 172.18.9.1 255.255.255.128
+ ipv6 address 2001:25:18::901/121
+ no shutdown
+interface e0/0.99
+ encapsulation dot1Q 99
+ ip address 172.18.10.145 255.255.255.240
+ no shutdown
+interface e0/1
+ duplex full
+ no shutdown
+interface e0/1.70
+ encapsulation dot1Q 70
+ ip address 172.18.10.1 255.255.255.192
+ ipv6 address 2001:25:18::a01/122
+ no shutdown
+interface s1/0
+ ip address 172.18.10.162 255.255.255.252
+ ipv6 address 2001:25:18::aa2/126
+ no shutdown
+router ospf 1
+ router-id 2.2.2.2
+ network 172.18.10.160 0.0.0.3 area 0
+ network 172.18.9.0 0.0.0.127 area 1
+ network 172.18.9.128 0.0.0.127 area 1
+ network 172.18.10.0 0.0.0.63 area 1
+ network 172.18.10.144 0.0.0.15 area 1
+ area 1 stub
+ passive-interface e0/0.50
+ passive-interface e0/0.60
+ passive-interface e0/1.70
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------SWM1--------------------------------
+enable
+configure terminal
+hostname SWM1
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode server
+vtp domain ITLA_E2
+vtp password Cisco123
+vtp version 2
+vlan 10
+ name Estudiantes
+vlan 20
+ name Docentes
+vlan 30
+ name Gestion
+vlan 40
+ name Voz
+vlan 99
+ name Blackhole
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,40,99 root primary
+ip routing
+interface vlan 10
+ ip address 172.18.0.4 255.255.248.0
+ standby version 2
+ standby 10 ip 172.18.0.1
+ standby 10 priority 90
+ standby 10 preempt
+ no shutdown
+interface vlan 20
+ ip address 172.18.8.4 255.255.255.0
+ standby version 2
+ standby 20 ip 172.18.8.1
+ standby 20 priority 90
+ standby 20 preempt
+ no shutdown
+interface vlan 30
+ ip address 172.18.10.68 255.255.255.224
+ standby version 2
+ standby 30 ip 172.18.10.65
+ standby 30 priority 90
+ standby 30 preempt
+ no shutdown
+interface vlan 40
+ ip address 172.18.10.100 255.255.255.224
+ standby version 2
+ standby 40 ip 172.18.10.97
+ standby 40 priority 90
+ standby 40 preempt
+ no shutdown
+interface range e0/1 - 3
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ channel-group 1 mode active
+ no shutdown
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ no shutdown
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ no shutdown
+interface e1/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ spanning-tree portfast trunk
+ no shutdown
+interface e1/1
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ spanning-tree portfast trunk
+ no shutdown
+interface e1/2
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,40,99
+ spanning-tree portfast trunk
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------SWM2--------------------------------
+enable
+configure terminal
+hostname SWM2
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode client
+vtp domain ITLA_E2
+vtp password Cisco123
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,40,99 root secondary
+ip routing
+interface vlan 10
+ ip address 172.18.0.5 255.255.248.0
+ standby version 2
+ standby 10 ip 172.18.0.1
+ standby 10 priority 80
+ standby 10 preempt
+ no shutdown
+interface vlan 20
+ ip address 172.18.8.5 255.255.255.0
+ standby version 2
+ standby 20 ip 172.18.8.1
+ standby 20 priority 80
+ standby 20 preempt
+ no shutdown
+interface vlan 30
+ ip address 172.18.10.69 255.255.255.224
+ standby version 2
+ standby 30 ip 172.18.10.65
+ standby 30 priority 80
+ standby 30 preempt
+ no shutdown
+interface vlan 40
+ ip address 172.18.10.101 255.255.255.224
+ standby version 2
+ standby 40 ip 172.18.10.97
+ standby 40 priority 80
+ standby 40 preempt
+ no shutdown
+interface range e0/1 - 3
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ channel-group 1 mode active
+ no shutdown
+interface port-channel 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ no shutdown
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,99
+ no shutdown
+interface e1/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ spanning-tree portfast trunk
+ no shutdown
+interface e1/1
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ spanning-tree portfast trunk
+ no shutdown
+interface e1/2
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,40,99
+ spanning-tree portfast trunk
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------SWAC1--------------------------------
+enable
+configure terminal
+hostname SWAC1
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode client
+vtp domain ITLA_E2
+vtp password Cisco123
+spanning-tree mode rapid-pvst
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ no shutdown
+interface e0/1
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20,99
+ no shutdown
+interface e1/0
+ duplex full
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------SWAC2--------------------------------
+enable
+configure terminal
+hostname SWAC2
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode client
+vtp domain ITLA_E2
+vtp password Cisco123
+spanning-tree mode rapid-pvst
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ no shutdown
+interface e0/1
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,99
+ no shutdown
+interface e2/0
+ duplex full
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory
+----------------------------SWAC3--------------------------------
+enable
+configure terminal
+hostname SWAC3
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode client
+vtp domain ITLA_E2
+vtp password Cisco123
+spanning-tree mode rapid-pvst
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,40,99
+ no shutdown
+interface e0/1
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30,40,99
+ no shutdown
+interface e3/0
+ duplex full
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2
+end
+write memory
+----------------------------SWA13--------------------------------
+enable
+configure terminal
+hostname SWA13
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode transparent
+vlan 50
+ name Finanzas
+vlan 60
+ name Academicos
+vlan 99
+ name Blackhole
+spanning-tree mode rapid-pvst
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 50,60,99
+ no shutdown
+interface e1/0
+ duplex full
+ switchport mode access
+ switchport access vlan 60
+ spanning-tree portfast
+ no shutdown
+interface e2/0
+ duplex full
+ switchport mode access
+ switchport access vlan 50
+ spanning-tree portfast
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+wr
+----------------------------SW--------------------------------
+enable
+configure terminal
+hostname SW
+username admin privilege 15 secret itla123
+enable secret Cisco123
+vtp mode transparent
+vlan 70
+ name Datacenter
+vlan 99
+ name Blackhole
+spanning-tree mode rapid-pvst
+interface e0/0
+ duplex full
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 70,99
+ no shutdown
+interface e0/1
+ duplex full
+ switchport mode access
+ switchport access vlan 70
+ spanning-tree portfast
+ no shutdown
+line console 0
+ login local
+ exec-timeout 10 0
+line vty 0 4
+ login local
+ exec-timeout 10 0
+ transport input telnet
+service password-encryption
+banner motd # Acceso restringido - Solo personal autorizado ITLA Equipo 2 #
+end
+write memory

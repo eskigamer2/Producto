@@ -1,0 +1,103 @@
+Sprint 1- Diseño y plan básico
+Direccionamiento IPV4
+VLAN
+Nombre Hos
+ts
+req.
+Prefi
+jo
+Red Gateway
+virtual
+Broadcast
+10 Estudiant
+es
+150
+0
+/21 172.18.0.0/21 172.18.0.1 172.18.7.2
+55
+20 Docentes 164 /24 172.18.8.0/24 172.18.8.1 172.18.8.2
+55
+60 Académi
+cos
+80 /25 172.18.9.0/25 172.18.9.1 172.18.9.1
+27
+50 Finanzas 64 /25 172.18.9.128/
+25
+172.18.9.1
+29
+172.18.9.2
+55
+70 Datacent
+er
+44 /26 172.18.10.0/2
+6
+172.18.10.
+1
+172.18.10.
+63
+30 Gestión 29 /27 172.18.10.64/
+27
+172.18.10.
+65
+172.18.10.
+95
+40 Voz 16 /27 172.18.10.96/
+27
+172.18.10.
+97
+172.18.10.
+127
+99 Blackhol
+e R1
+10 /28 172.18.10.12
+8/28
+— 172.18.10.
+143
+99 Blackhol
+e R2
+10 /28 172.18.10.14
+4/28
+— 172.18.10.
+159
+P2P Serial
+R1↔R2
+2 /30 172.18.10.16
+0/30
+172.18.10.
+161
+172.18.10.
+163
+WA
+N
+ISP↔R1
+-Core
+2 /30 203.0.113.0/3
+0
+203.0.113.
+1
+203.0.113.
+3
+Direccionamiento IPV6
+VLAN Nombre Prefijo Red Gateway
+10 Estudiantes /117 2001:25:18::/117 2001:25:18::1
+20 Docentes /120 2001:25:18::800/120 2001:25:18::801
+60 Académicos /121 2001:25:18::900/121 2001:25:18::901
+50 Finanzas /121 2001:25:18::980/121 2001:25:18::981
+70 Datacenter /122 2001:25:18:a00/122 2001:25:18:a01
+30 Gestión /123 2001:25:18:a40/123 2001:25:18:a41
+40 Voz /123 2001:25:18:a60/123 2001:25:18::a61
+99 Blackhole R1 /124 2001:25:18:a80/124 —
+99 Blackhole R2 /124 2001:25:18::a90/124 —
+P2P Serial
+R1↔R2
+/126 2001:25:18::aa0/126 2001:25:18::aa1
+Tabla de VLANS
+VLAN ID Nombre Router Hosts requeridos
+10 Estudiantes R1-Core 1500
+20 Docentes R1-Core 164
+30 Gestión R1-Core 29
+40 Voz R1-Core 16
+50 Finanzas R2 64
+60 Académicos R2 80
+70 Datacenter R2 44
+99 Blackhole Ambos 10

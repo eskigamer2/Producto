@@ -1,0 +1,62 @@
+Documentación de la empresa
+
+Red empresarial mediana implementada en PNETLab que integra segmentación por departamentos, alta disponibilidad de gateway, redundancia de enlace, enrutamiento interior multiárea y soporte dual stack IPv4/IPv6.
+El diseño cubre dos sedes conectadas por enlace serial con los siguientes objetivos:
+•	Segmentación de tráfico por departamento mediante VLANs
+•	Alta disponibilidad de gateway con HSRP en tres niveles
+•	Redundancia de enlace con EtherChannel LACP
+•	Enrutamiento interior con OSPFv2 área única y multiárea
+•	Soporte completo IPv4 e IPv6
+•	Control de acceso a dispositivos por consola y Telnet
+
+El objetivo principal de este proyecto fue desarrollar e implementar
+una red basada en buenas prácticas de administración y
+segmentación, incorporando tecnologías fundamentales de redes
+modernas. Entre los elementos más importantes se incluyen la
+implementación del protocolo de enrutamiento OSPFv2 para el
+intercambio dinámico de rutas dentro de la red, así como la
+configuración de Listas de Control de Acceso (ACLs) para reforzar
+la seguridad y controlar el flujo de tráfico entre los distintos
+segmentos.
+Adicionalmente, el diseño de la red contempló la aplicación de
+VLSM para direccionamiento IPv4, permitiendo optimizar el uso
+de las direcciones disponibles, así como la incorporación de
+direccionamiento IPv6, con el objetivo de preparar la
+infraestructura para el crecimiento futuro y la adopción de
+tecnologías modernas de comunicación. También se
+implementaron configuraciones esenciales como VLANs para la
+segmentación lógica de la red, VTP para la administración
+centralizada de VLANs, STP para la prevención de bucles en la red,
+EtherChannel para incrementar el ancho de banda y la redundancia
+en enlaces, HSRP para proporcionar alta disponibilidad en la puerta
+de enlace, y servicios de DHCP y DHCPv6 para la asignación
+automática de direcciones IP a los dispositivos de la red.
+Organización del Proyecto por Sprints
+Para facilitar la planificación y ejecución del proyecto, el desarrollo
+se estructuró mediante una metodología dividida en tres Sprints,
+donde cada fase aborda componentes específicos de la red:
+Sprint 1 – Planificación y Configuración Inicial
+En esta primera fase se desarrollaron los elementos fundamentales de
+la red, incluyendo la tabla de direccionamiento IP utilizando VLSM, la
+definición de las VLANs, y la implementación de los servicios de DHCP
+y DHCPv6 para la asignación automática de direcciones. Además, se
+realizó la configuración de VTP, permitiendo la gestión centralizada de
+las VLANs dentro de la infraestructura.
+Sprint 2 – Implementación de la Infraestructura de Conmutación
+Durante el segundo sprint se implementaron mecanismos destinados a
+mejorar la redundancia, disponibilidad y eficiencia de la red. En esta etapa
+se configuró EtherChannel para la agregación de enlaces físicos, se completó
+la configuración de VLANs y subinterfaces, y se implementaron los
+protocolos STP y HSRP con el objetivo de evitar bucles en la red y garantizar
+alta disponibilidad en los gateway.
+Sprint 3 – Enrutamiento y Seguridad
+La fase final del proyecto se enfocó en el establecimiento de la comunicación
+entre las distintas redes mediante la implementación del protocolo de
+enrutamiento dinámico OSPFv2, permitiendo la propagación eficiente de las
+rutas dentro de la infraestructura. Asimismo, se configuraron Listas de
+Control de Acceso (ACLs) para regular el acceso entre segmentos de red y
+fortalecer las políticas de seguridad
+En conjunto, este documento presenta la arquitectura de la red, el diseño del
+direccionamiento, la segmentación lógica y los mecanismos de enrutamiento
+y seguridad implementados, constituyendo una base tecnológica sólida que
+permite una red eficiente, segura y preparada para futuras ampliaciones. 
